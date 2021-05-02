@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Imprint | Rescue Respiration </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+    :root {
+        /* Primary theme color */
+        --primary-color: #A5D3FF;
+        /* Primary theme text color */
+        --primary-text-color: #2B2D42;
+        /* Primary theme link color */
+        --primary-link-color: #D7331D;
+
+        /* Secondary color: the background body color */
+        --secondary-color: #EDF2F4;
+        --secondary-text-color: #2B2D42;
+        /* Highlight text color of table of content */
+        --toc-highlight-text-color: #2B2D42;
+    }
+</style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;juice.css">
+    
+    
+</head>
+
+<body>
+    
+<header class="box-shadow">
+    
+
+<a href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;">
+    <div class="logo">
+        <img src="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;lung-red.svg" alt="logo">
+        Rescue Respiration
+    </div>
+</a>
+
+<nav>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;history&#x2F;">History</a>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;changelog&#x2F;">Changelog</a>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;documentation&#x2F;">Documentation</a>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;imprint&#x2F;">Imprint</a>
+    
+    
+        
+        <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;github.com&#x2F;rescue-respiration&#x2F;easyBreathe">Github</a>
+        
+    
+</nav>
+
+</header>
+
+
+    <main>
+        
+        
+        
+        
+
+        <div class="content text">
+            
+<div class="heading-text">Imprint</div>
+
+
+        </div>
+
+        
+        
+    </main>
+
+    
+    <footer>
+        <small class="subtext">
+    <p>Supported by the <a href="https://www.bmz.de/en/">Ministry for Economic Cooperation and Development (BMZ) </a>of Germany<p>
+    <p>Contents under CC-BY-SA 4.0</p>
+</small>
+
+    </footer>
+    
+</body>
+<script>
+    function highlightNav(heading) {
+        let pathname = location.pathname;
+        document.querySelectorAll(".toc a").forEach((item) => {
+            item.classList.remove("active");
+        });
+        document.querySelector(".toc a[href$='" + pathname + "#" + heading + "']").classList.add("active");
+    }
+
+    let currentHeading = "";
+    window.onscroll = function () {
+        let h = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        let elementArr = [];
+
+        h.forEach(item => {
+            if (item.id !== "") {
+                elementArr[item.id] = item.getBoundingClientRect().top;
+            }
+        });
+        elementArr.sort();
+        for (let key in elementArr) {
+            if (!elementArr.hasOwnProperty(key)) {
+                continue;
+            }
+            if (elementArr[key] > 0 && elementArr[key] < 300) {
+                if (currentHeading !== key) {
+                    highlightNav(key);
+                    currentHeading = key;
+                }
+                break;
+            }
+        }
+    }
+</script>
+
+</html>

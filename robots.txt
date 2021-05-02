@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://felixschloesser.github.io/rescue-respiration-website-test/sitemap.xml

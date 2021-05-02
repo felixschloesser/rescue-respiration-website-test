@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Documentation | Rescue Respiration </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+    :root {
+        /* Primary theme color */
+        --primary-color: #A5D3FF;
+        /* Primary theme text color */
+        --primary-text-color: #2B2D42;
+        /* Primary theme link color */
+        --primary-link-color: #D7331D;
+
+        /* Secondary color: the background body color */
+        --secondary-color: #EDF2F4;
+        --secondary-text-color: #2B2D42;
+        /* Highlight text color of table of content */
+        --toc-highlight-text-color: #2B2D42;
+    }
+</style>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/normalize.css">
+    <link rel="stylesheet" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;juice.css">
+    
+    
+</head>
+
+<body>
+    
+<header class="box-shadow">
+    
+
+<a href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;">
+    <div class="logo">
+        <img src="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;lung-red.svg" alt="logo">
+        Rescue Respiration
+    </div>
+</a>
+
+<nav>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;history&#x2F;">History</a>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;changelog&#x2F;">Changelog</a>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;documentation&#x2F;">Documentation</a>
+    
+    <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;felixschloesser.github.io&#x2F;rescue-respiration-website-test&#x2F;imprint&#x2F;">Imprint</a>
+    
+    
+        
+        <a class="nav-item subtitle-text" href="https:&#x2F;&#x2F;github.com&#x2F;rescue-respiration&#x2F;easyBreathe">Github</a>
+        
+    
+</nav>
+
+</header>
+
+
+    <main>
+        
+        
+        
+        
+        
+        <div class="toc">
+            <div class="toc-sticky">
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://felixschloesser.github.io/rescue-respiration-website-test/documentation/#easybreathe">EasyBreathe</a>
+                </div>
+                
+                
+                <div class="toc-item-child">
+                    <a class="subtext" href="https://felixschloesser.github.io/rescue-respiration-website-test/documentation/#installation-instructions"><small>- Installation Instructions</small></a>
+                </div>
+                
+                
+                
+                <div class="toc-item">
+                    <a class="subtext" href="https://felixschloesser.github.io/rescue-respiration-website-test/documentation/#installing-the-proper-display-drivers">Installing the proper Display Drivers</a>
+                </div>
+                
+                
+                <div class="toc-item-child">
+                    <a class="subtext" href="https://felixschloesser.github.io/rescue-respiration-website-test/documentation/#python-requirements"><small>- Python Requirements</small></a>
+                </div>
+                
+                
+                
+            </div>
+        </div>
+        
+        
+
+        <div class="content text">
+            
+<div class="heading-text">Very good Documentation</div>
+<h1 id="easybreathe">EasyBreathe</h1>
+<p>We need to complete a few installation steps to configure the Raspberry to run our application in Kiosk-mode. This means setting up the system in such way that prevents user interaction and activities on the device outside the scope of execution of our application.</p>
+<h2 id="installation-instructions">Installation Instructions</h2>
+<p>Based heavily on this <a href="http://shallowsky.com/blog/tech/raspberry-pi-kiosk.html">blog</a>.</p>
+<h3 id="using-raspian-lite">Using Raspian Lite</h3>
+<p>Raspbian desktop is bloated. More important, the desktop is difficult to configure. We are therefore starting with a freshly burned <a href="https://www.raspberrypi.org/downloads/raspbian/">Raspbian Lite</a> SD card.</p>
+<h3 id="set-up-raspbian-lite-with-network-and-ssh">Set Up Raspbian-Lite with Network and SSH</h3>
+<p>We may want to use ssh inside our home network while debugging, even though the final application won't need a network. The easiest way to enable SSH is to mount the first partition: <code>sudo mount /dev/sdX1 /mnt</code>.
+(sdX is wherever the card shows up on your machine, e.g. sdB) and create two files:</p>
+<ol>
+<li>
+<p>An empty file named <em>ssh</em>, easily created using <code>touch /mnt/ssh</code>.</p>
+</li>
+<li>
+<p>A file named <em>wpa_supplicant.conf</em> with the settings for the local network:</p>
+<pre style="background-color:#2b303b;">
+<code> ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+ update_config=1
+
+ network={
+     ssid=&quot;MY-WIFI-SSID&quot;
+     psk=&quot;MY-WIFI-PASSWORD&quot;
+     priority=10
+ }
+</code></pre></li>
+</ol>
+<p>Then unmount that partition using <code>sudo umount /mnt</code></p>
+<h3 id="copying-the-application-files">Copying the application files</h3>
+<p>The second partition on a Raspbian card is the root filesystem, including /home/pi, the pi user's home dictory. Mount <code>/dev/sdX2</code>, copy the application folder or clone this repository into <code>/home/pi</code>, and chown the code to the pi user. Don't forget to first create a ssh key and add it to your GitHub account so the Pi is allowed to pull from the private repository.</p>
+<p>Unmount the SD card and insert it to the Raspberry Pi.</p>
+<h3 id="raspbian-first-boot-configuration">Raspbian first-boot configuration</h3>
+<p>Boot the Pi with a monitor attached, log in as the pi user, run <code>sudo raspi-config</code>, and:</p>
+<ul>
+<li>set the locale and keyboard,</li>
+<li>change the password for user Pi,</li>
+<li>in <em>Boot Options</em>, choose “Desktop / CLI” and “Console Autologin” so the <em>pi</em> user will be logged in automatically.</li>
+</ul>
+<p>To make sure the installation won't become too bloated, create the file <em>/etc/apt/apt.conf</em> containing:</p>
+<pre style="background-color:#2b303b;">
+<code>APT::Install-Recommends &quot;false&quot;;
+APT::Install-Suggests &quot;false&quot;;
+</code></pre>
+<p>Update the OS, and install the packages needed to run X, the Openbox window manager, a terminal (I used xterm in this example), and a text editor. If you're in a hurry, you can skip the update and dist-upgrade steps.</p>
+<pre style="background-color:#2b303b;">
+<code>$ sudo apt update
+$ sudo apt dist-upgrade
+$ sudo apt install xserver-xorg x11-xserver-utils xinit openbox xterm
+</code></pre><h3 id="installing-the-application-specific-dependencies">Installing the application-specific dependencies:</h3>
+<p>We start by installing pip and the Tk bindings: <code>sudo apt install python3-pip python3-tk</code></p>
+<p>Then install the needed python modules <em>matplotlib</em> and <em>pandas</em> using pip: <code>python3 -m pip install matplotlib pandas</code></p>
+<h3 id="configuring-openbox">Configuring Openbox</h3>
+<p>Start by creating the Openbox configuration directory: <code>mkdir -p .config/openbox</code>
+Create a file <em>.config/openbox/autostart</em> containing:</p>
+<pre style="background-color:#2b303b;">
+<code># Disable screen saver/screen blanking/power management
+xset s off
+xset s noblank
+xset -dpms
+
+# Start a terminal
+xterm &amp;
+</code></pre>
+<p>Save the file, and test to make sure you can run X: <code>$ startx</code></p>
+<p>You should see a black screen, a mouse pointer, and after a few seconds, a small xterm window in the center of the screen. You can use the xterm to fiddle with things you want to change, or you can right-click anywhere outside the xterm window to get a menu that will let you exit X and go back to the bare console.</p>
+<h3 id="getting-rid-of-that-pesky-cursor-and-starting-at-boot">Getting rid of that pesky cursor and starting at boot:</h3>
+<p>As we are using a touchscreen, we want to remove that annoying mouse pointer arrow. Add this to your <em>.bash_profile</em>:</p>
+<pre style="background-color:#2b303b;">
+<code>[[ -z $DISPLAY &amp;&amp; $XDG_VTNR -eq 1 ]] &amp;&amp; startx -- -nocursor
+</code></pre>
+<p>If you are stuck in the kiosk-view, you can still ssh-in from another machine and use <code>killall python3</code> to force quit the application.</p>
+<h1 id="installing-the-proper-display-drivers">Installing the proper Display Drivers</h1>
+<p>We are using the 7inch HDMI Display-C-1024X600(MPI7002) which needs special drivers in order to work properly.</p>
+<p><code>git clone https://github.com/goodtft/LCD-show.git</code>
+<code>chmod -R 755 LCD-show</code>
+<code>cd LCD-show/</code></p>
+<p>Here we find a bunch of different drivers, but because we are using the 7inch variant with a 1024X600 resolution we need to select the apropriate driver.
+<code>sudo ./LCD7C-show</code></p>
+<h2 id="python-requirements">Python Requirements</h2>
+<p><code>python3 -m pip install --upgrade pip</code>
+<code>python3 -m pip install -r requirements.txt</code></p>
+<h3 id="numpy-specific-requirements">Numpy specific Requirements</h3>
+<p><code>sudo apt-get install libatlas-base-dev</code></p>
+
+
+        </div>
+
+        
+        
+    </main>
+
+    
+    <footer>
+        <small class="subtext">
+    <p>Supported by the <a href="https://www.bmz.de/en/">Ministry for Economic Cooperation and Development (BMZ) </a>of Germany<p>
+    <p>Contents under CC-BY-SA 4.0</p>
+</small>
+
+    </footer>
+    
+</body>
+<script>
+    function highlightNav(heading) {
+        let pathname = location.pathname;
+        document.querySelectorAll(".toc a").forEach((item) => {
+            item.classList.remove("active");
+        });
+        document.querySelector(".toc a[href$='" + pathname + "#" + heading + "']").classList.add("active");
+    }
+
+    let currentHeading = "";
+    window.onscroll = function () {
+        let h = document.querySelectorAll("h1,h2,h3,h4,h5,h6");
+        let elementArr = [];
+
+        h.forEach(item => {
+            if (item.id !== "") {
+                elementArr[item.id] = item.getBoundingClientRect().top;
+            }
+        });
+        elementArr.sort();
+        for (let key in elementArr) {
+            if (!elementArr.hasOwnProperty(key)) {
+                continue;
+            }
+            if (elementArr[key] > 0 && elementArr[key] < 300) {
+                if (currentHeading !== key) {
+                    highlightNav(key);
+                    currentHeading = key;
+                }
+                break;
+            }
+        }
+    }
+</script>
+
+</html>
