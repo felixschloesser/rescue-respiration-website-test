@@ -14,9 +14,6 @@ compile_sass = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
-# The site theme to use.
-theme = "juice"
-
 # When set to "true", the generated HTML files are minified.
 minify_html = false
 
